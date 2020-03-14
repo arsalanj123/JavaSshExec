@@ -1,5 +1,3 @@
-
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,22 +14,31 @@ public class demo {
     public static void main(String[] args){
 
         try{
+            // Add command to run on ClI of the device
             String command = "";
+            // Add the hostname or host IP
             String host = "";
+            // Add the username to login with
             String user = "";
+            // Add the password to login with
             String password = "";
-            boolean success = false;
-
+            // Add the substring to find in the resulting output of the command
             String stringToFind = "";
+            // Add the output required to be displayed if the substring is found
             String ifString = "";
+            // Add the output required to be displayed if the substring is NOT found
             String ifStringNot = "";
-
             //Set true or false if you want to see command execution output display
             boolean showCmdOutput = false;
+
+            // Leave this variable
+            boolean successFound = false;
+
 
             JSch jsch = new JSch();
             Session session = jsch.getSession(user, host, 22);
             Properties config = new Properties();
+            // Strict Host Key Checking
             config.put("StrictHostKeyChecking", "no");
             session.setConfig(config);;
             session.setPassword(password);
@@ -45,7 +52,7 @@ public class demo {
             InputStream input = channel.getInputStream();
             channel.connect();
 
-            System.out.println("Channel Connected to machine " + host + " server with command: " + command );
+            System.out.println("\nChannel Connected to machine " + host + " server with command: " + command + "\n");
 
             try{
                 InputStreamReader inputReader = new InputStreamReader(input);
@@ -61,13 +68,13 @@ public class demo {
                     }
                     boolean isFound = line.contains(stringToFind);
                     if (isFound == true) {
-                        success = true;
+                        successFound = true;
                     }
                     else {
                         continue;
                     }
                 }
-                if (success == false) {
+                if (successFound == false) {
                     System.out.println(ifStringNot);
                 }
                 else {
