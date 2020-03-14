@@ -18,6 +18,8 @@ public class demo {
             String command = "";
             // Add the hostname or host IP
             String host = "";
+            // Add the port number
+            Integer portNumber = 22;
             // Add the username to login with
             String user = "";
             // Add the password to login with
@@ -36,7 +38,7 @@ public class demo {
 
 
             JSch jsch = new JSch();
-            Session session = jsch.getSession(user, host, 22);
+            Session session = jsch.getSession(user, host, portNumber);
             Properties config = new Properties();
             // Strict Host Key Checking
             config.put("StrictHostKeyChecking", "no");
